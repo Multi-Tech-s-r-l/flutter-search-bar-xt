@@ -52,7 +52,6 @@ class SearchBar {
   /// The controller to be used in the textField.
   late TextEditingController controller;
 
-  FocusNode? focusNode;
   /// Whether the clear button should be active (fully colored) or inactive (greyed out)
   bool _clearActive = false;
 
@@ -75,13 +74,9 @@ class SearchBar {
     this.onCleared,
     this.onOpen,
     this.keyboardType = TextInputType.text,
-    this.focusNode,
   }) {
     this.controller = controller ?? new TextEditingController();
 
-    focusNode = focusNode ?? FocusNode();
-    focusNode!.addListener(() => print('focusNode updated: hasFocus: ${focusNode!.hasFocus}'));
-    
     // Don't waste resources on listeners for the text controller if the dev
     // doesn't want a clear button anyways in the search bar
     if (!this.showClearButton) {
@@ -140,6 +135,9 @@ class SearchBar {
     return buildDefaultAppBar(context) as AppBar;
   }
 
+
+  FocusNode? focusNode;
+
   /// Builds the search bar!
   ///
   /// The leading will always be a back button.
@@ -149,6 +147,11 @@ class SearchBar {
   AppBar buildSearchBar(BuildContext context) {
     ThemeData theme = Theme.of(context);
     Color? buttonColor = inBar ? null : theme.iconTheme.color;
+    if (focusNode!=null){
+      focusNode!.dispose();
+    }
+    focusNode=FocusNode();
+    focusNode!.addListener(() => print('focusNode updated: hasFocus: ${focusNode!.hasFocus}'));
 
     return AppBar(
       leading: IconButton(
