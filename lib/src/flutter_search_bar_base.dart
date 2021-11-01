@@ -120,11 +120,9 @@ class SearchBar {
   }
 
   void cancelSearch(context) {
-
-
-    setState(() {
-      isSearching.value = false;
-    });
+    onClosed?.call();
+    controller.clear();
+    Navigator.maybePop(context);
   }
 
   /// Builds, saves and returns the default app bar.
