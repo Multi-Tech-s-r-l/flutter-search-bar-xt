@@ -74,6 +74,7 @@ class SearchBar {
     this.onCleared,
     this.onOpen,
     this.keyboardType = TextInputType.text,
+    this.focusNode,
   }) {
     this.controller = controller ?? new TextEditingController();
 
@@ -147,11 +148,7 @@ class SearchBar {
   AppBar buildSearchBar(BuildContext context) {
     ThemeData theme = Theme.of(context);
     Color? buttonColor = inBar ? null : theme.iconTheme.color;
-    if (focusNode!=null){
-      focusNode!.dispose();
-    }
-    focusNode=new FocusNode();
-    focusNode!.addListener(() => print('focusNode updated: hasFocus: ${focusNode!.hasFocus}'));
+
 
     return AppBar(
       leading: IconButton(
@@ -221,7 +218,6 @@ class SearchBar {
         icon: Icon(Icons.search, semanticLabel: "Search"),
         onPressed: () {
           beginSearch(context);
-          setFocus(context);
           onOpen?.call();
         });
   }
@@ -229,9 +225,6 @@ class SearchBar {
   /// Returns an AppBar based on the value of [isSearching]
   AppBar build(BuildContext context) {
     return isSearching.value ? buildSearchBar(context) : buildAppBar(context);
-  }
-  void setFocus(context) {
-    FocusScope.of(context).requestFocus(focusNode);
   }
 
   void dispose() {
