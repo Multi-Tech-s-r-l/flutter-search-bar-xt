@@ -120,11 +120,7 @@ class SearchBar {
   }
 
   void cancelSearch(context) {
-    ModalRoute.of(context)!.removeLocalHistoryEntry(LocalHistoryEntry(onRemove: () {
-      setState(() {
-        isSearching.value = false;
-      });
-    }));
+
 
     setState(() {
       isSearching.value = false;
