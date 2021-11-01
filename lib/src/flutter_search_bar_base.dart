@@ -185,7 +185,7 @@ class SearchBar {
             }
             onSubmitted?.call(val);
           },
-          autofocus: true,
+          autofocus: false,
           controller: controller,
         ),
       ),
