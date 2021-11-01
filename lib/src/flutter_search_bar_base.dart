@@ -150,7 +150,7 @@ class SearchBar {
     if (focusNode!=null){
       focusNode!.dispose();
     }
-    focusNode=FocusNode();
+    focusNode=new FocusNode();
     focusNode!.addListener(() => print('focusNode updated: hasFocus: ${focusNode!.hasFocus}'));
 
     return AppBar(
