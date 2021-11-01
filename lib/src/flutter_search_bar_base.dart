@@ -216,6 +216,7 @@ class SearchBar {
         icon: Icon(Icons.search, semanticLabel: "Search"),
         onPressed: () {
           beginSearch(context);
+          setFocus(context);
           onOpen?.call();
         });
   }
