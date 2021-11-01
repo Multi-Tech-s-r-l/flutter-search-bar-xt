@@ -52,6 +52,7 @@ class SearchBar {
   /// The controller to be used in the textField.
   late TextEditingController controller;
 
+  FocusNode? focusNode;
   /// Whether the clear button should be active (fully colored) or inactive (greyed out)
   bool _clearActive = false;
 
@@ -74,6 +75,7 @@ class SearchBar {
     this.onCleared,
     this.onOpen,
     this.keyboardType = TextInputType.text,
+    this.focusNode,
   }) {
     this.controller = controller ?? new TextEditingController();
 
@@ -101,6 +103,7 @@ class SearchBar {
           _clearActive = true;
         });
       }
+      focusNode = focusNode ?? FocusNode();
     });
   }
 
@@ -159,6 +162,7 @@ class SearchBar {
         textDirection: Directionality.of(context),
         child: TextField(
           key: Key('SearchBarTextField'),
+          focusNode: focusNode,
           keyboardType: keyboardType,
           decoration: InputDecoration(
               hintText: hintText,
@@ -219,4 +223,5 @@ class SearchBar {
   AppBar build(BuildContext context) {
     return isSearching.value ? buildSearchBar(context) : buildAppBar(context);
   }
+
 }
