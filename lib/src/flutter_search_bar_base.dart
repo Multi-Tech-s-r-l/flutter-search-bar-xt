@@ -55,6 +55,10 @@ class SearchBar {
   /// Whether the clear button should be active (fully colored) or inactive (greyed out)
   bool _clearActive = false;
 
+
+  /// A void callback which gets fired on open button press.
+  final VoidCallback? onOpen;
+
   SearchBar({
     required this.setState,
     required this.buildDefaultAppBar,
@@ -68,6 +72,7 @@ class SearchBar {
     this.onChanged,
     this.onClosed,
     this.onCleared,
+    this.onOpen,
     this.keyboardType = TextInputType.text,
   }) {
     this.controller = controller ?? new TextEditingController();
@@ -111,6 +116,18 @@ class SearchBar {
 
     setState(() {
       isSearching.value = true;
+    });
+  }
+
+  void cancelSearch(context) {
+    ModalRoute.of(context)!.removeLocalHistoryEntry(LocalHistoryEntry(onRemove: () {
+      setState(() {
+        isSearching.value = false;
+      });
+    }));
+
+    setState(() {
+      isSearching.value = false;
     });
   }
 
@@ -198,6 +215,7 @@ class SearchBar {
         icon: Icon(Icons.search, semanticLabel: "Search"),
         onPressed: () {
           beginSearch(context);
+          onOpen?.call();
         });
   }
 
