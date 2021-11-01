@@ -119,8 +119,10 @@ class SearchBar {
     });
   }
 
-  void cancelSearch(context) {
-    onClosed?.call();
+  void cancelSearch(notifyOnClosed, context) {
+    if (notifyOnClosed) {
+      onClosed?.call();
+    }
     controller.clear();
     Navigator.maybePop(context);
   }
