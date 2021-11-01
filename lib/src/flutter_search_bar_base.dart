@@ -79,6 +79,9 @@ class SearchBar {
   }) {
     this.controller = controller ?? new TextEditingController();
 
+    focusNode = focusNode ?? FocusNode();
+    focusNode!.addListener(() => print('focusNode updated: hasFocus: ${focusNode!.hasFocus}'));
+    
     // Don't waste resources on listeners for the text controller if the dev
     // doesn't want a clear button anyways in the search bar
     if (!this.showClearButton) {
@@ -103,8 +106,7 @@ class SearchBar {
           _clearActive = true;
         });
       }
-      focusNode = focusNode ?? FocusNode();
-      focusNode!.addListener(() => print('focusNode updated: hasFocus: ${focusNode!.hasFocus}'));
+
     });
   }
 
