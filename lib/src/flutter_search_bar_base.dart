@@ -104,6 +104,7 @@ class SearchBar {
         });
       }
       focusNode = focusNode ?? FocusNode();
+      focusNode!.addListener(() => print('focusNode updated: hasFocus: ${focusNode!.hasFocus}'));
     });
   }
 
@@ -185,7 +186,7 @@ class SearchBar {
             }
             onSubmitted?.call(val);
           },
-          autofocus: false,
+          autofocus: true,
           controller: controller,
         ),
       ),
@@ -222,6 +223,9 @@ class SearchBar {
   /// Returns an AppBar based on the value of [isSearching]
   AppBar build(BuildContext context) {
     return isSearching.value ? buildSearchBar(context) : buildAppBar(context);
+  }
+  void setFocus(context) {
+    FocusScope.of(context).requestFocus(focusNode);
   }
 
   void dispose() {
