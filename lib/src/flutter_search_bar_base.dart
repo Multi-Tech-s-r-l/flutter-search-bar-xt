@@ -227,7 +227,5 @@ class SearchBar {
     return isSearching.value ? buildSearchBar(context) : buildAppBar(context);
   }
 
-  void dispose() {
-    focusNode?.dispose();
-  }
+
 }
